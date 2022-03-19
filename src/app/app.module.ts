@@ -6,6 +6,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar'; 
+import { FlexLayoutModule } from '@angular/flex-layout';
+import 'hammerjs';
+
 // A decorator is a function that modifies Javascript classes
 // NgModule allows you to specify some details about this app module
 @NgModule({
@@ -16,7 +21,10 @@ import { AppComponent } from './app.component';
   ],
   imports: [ // specifices which modules need to be imported to be used with this app module
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    FlexLayoutModule
   ],
   providers: [], // What services this module will make use of
   bootstrap: [AppComponent] // the app component is the root component
