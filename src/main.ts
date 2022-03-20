@@ -1,4 +1,5 @@
-// A typical Angular app is a hierarchy of modules, with a root module.
+// A typical Angular app is a hierarchy of modules, with a root module 
+// (in this case, the 'app' module).
 
 // This file is a companion to the index.html page
 

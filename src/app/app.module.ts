@@ -1,5 +1,9 @@
 // This is the root module for your Angular app
 
+// A module is a mechanism that groups components, directives,
+// pipes, and services that are related.
+// They can be combined with other modules to create an app).
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
