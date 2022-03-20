@@ -12,8 +12,10 @@ import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
+import { MatListModule } from '@angular/material/list'
 import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
+import { MenuComponent } from './menu/menu.component';
 
 // A decorator is a function that modifies Javascript classes
 // NgModule allows you to specify some details about this app module
@@ -21,13 +23,14 @@ import 'hammerjs';
   declarations: [ // Declares the view classes that belong to this particular module
   // The view classes for an Angular module would be in the form of 
   // either components, directives, and pipes.
-    AppComponent
+    AppComponent, MenuComponent
   ],
   imports: [ // specifices which modules need to be imported to be used with this app module
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
+    MatListModule,
     FlexLayoutModule
   ],
   providers: [], // What services this module will make use of
