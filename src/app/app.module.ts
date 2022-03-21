@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
 import { MenuComponent } from './menu/menu.component';
+import { DishdetailComponent } from './dishdetail/dishdetail.component';
 
 // A decorator is a function that modifies Javascript classes
 // NgModule allows you to specify some details about this app module
@@ -26,7 +27,7 @@ import { MenuComponent } from './menu/menu.component';
   declarations: [ // Declares the view classes that belong to this particular module
   // The view classes for an Angular module would be in the form of 
   // either components, directives, and pipes.
-    AppComponent, MenuComponent
+    AppComponent, MenuComponent, DishdetailComponent
   ],
   imports: [ // specifices which modules need to be imported to be used with this app module
     BrowserModule,
