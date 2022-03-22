@@ -1,3 +1,4 @@
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) ![built-with-angular](https://user-images.githubusercontent.com/55874439/159388094-39948e02-00db-47bd-a7d5-f610b2c6a9cd.svg)
 # ConFusion
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
