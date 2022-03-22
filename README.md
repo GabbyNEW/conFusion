@@ -2,6 +2,20 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
 
+## Background
+This repository is created as part of taking the course **Front-End JavaScript Frameworks: Angular** on [Coursera](https://www.coursera.org/learn/angular?specialization=full-stack-mobile-app-development). This course concentrates mainly on Javascript based front-end frameworks, and in particular the Angular framework (Currently Ver. 6.x). This course will use Typescript for developing Angular application. Typescript features will be introduced in the context of Angular as part of the exercises. Introduction to the use of Angular Material and Angular Flex-Layout for responsive UI design is also covered. Various aspects of Angular including components, directives and services will be introduced. Data binding, Angular router and its use for developing single-page applications will be learned.  The course also covers designing both template-driven forms and reactive forms. A quick introduction to Observables, reactive programming and RxJS in the context of Angular is included. Then, Angular support for client-server communication through the HTTP client and the use of REST API on the server side will be learned.
+
+On the completion of this repository, the learning goals are:
+- Be familiar with client-side Javascript frameworks and the Angular framework
+- Be able to implement single page applications in Angular
+- Be able to use various Angular features including directives, components and services
+- Be able to implement a functional front-end web application using Angular
+- Be able to use Angular Material and Angular Flex-Layout for designing responsive Angular applications
+- Be able to use Observables and RxJS in the context of Angular applications
+
+## Output
+_Work in progress_
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
