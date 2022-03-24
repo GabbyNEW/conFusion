@@ -1,3 +1,5 @@
+import { Comment } from './comment'
+
 // This is available for all other components to use
 export class Dish {
     id!: string;
@@ -8,4 +10,5 @@ export class Dish {
     label!: string;
     price!: string;
     description!: string;
+    comments!: Comment[];
 }
