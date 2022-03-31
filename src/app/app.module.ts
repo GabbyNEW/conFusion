@@ -21,6 +21,8 @@ import 'hammerjs';
 import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
 
+import { DishService } from './services/dish.service';
+
 // A decorator is a function that modifies Javascript classes
 // NgModule allows you to specify some details about this app module
 @NgModule({
@@ -40,7 +42,9 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
     MatButtonModule,
     FlexLayoutModule
   ],
-  providers: [], // What services this module will make use of
+  providers: [
+    DishService
+  ], // What services this module will make use of
   bootstrap: [AppComponent] // the app component is the root component
 })
 
