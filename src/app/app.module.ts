@@ -26,6 +26,7 @@ import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
 
 import { DishService } from './services/dish.service';
+import { PromotionService } from './services/promotion.service';
 
 import 'hammerjs';
 
@@ -47,13 +48,15 @@ import 'hammerjs';
     MatCardModule,
     MatButtonModule,
     FlexLayoutModule,
-    AppRoutingModule
   ],
   providers: [
-    DishService
+    DishService,
+    PromotionService
   ], // What services this module will make use of
   bootstrap: [AppComponent] // the app component is the root component
 })
 
 export class AppModule { }
 // Typescript adds Classes to your typical Javascript code
+
+// TODO: FontAwesome, Angular Material better integration
