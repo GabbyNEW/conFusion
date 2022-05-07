@@ -10,7 +10,11 @@
     <div fxFlex>
         <mat-grid-list cols="2" rowHeight="200px">
             <!-- structural directive, pipes, and material attributes are used -->
-            <mat-grid-tile *ngFor="let dish of dishes" (click)="onSelect(dish)">
+            <!-- <mat-grid-tile *ngFor="let dish of dishes" (click)="onSelect(dish)"> -->
+
+            <!-- routerLink attribute = initiates navigation to a route. -->
+            <!-- The Router enables the dishComponent to retrieve the value of routerLink -->
+            <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]">
                 <img height="200px" src="{{dish.image}}" alt="{{dish.name}}">
                 <mat-grid-tile-footer>
                     <h1> {{dish.name | uppercase}}</h1>
@@ -21,8 +25,8 @@
 
     <!-- (Data-source to view binding) The value of the selectedDish ( from the menu component) 
         will be passed to the dishdetail component through the dish property -->
-    <app-dishdetail [dish]="selectedDish">
+    <!-- <app-dishdetail [dish]="selectedDish">
         
-    </app-dishdetail>
+    </app-dishdetail> -->
 
 </div>
