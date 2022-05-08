@@ -9,6 +9,7 @@ import { Component } from "@angular/core";
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
+    {path: 'aboutus', component: AboutComponent},
     {path: 'menu', component: MenuComponent},
     // Router parameter, navigate to this view with a parameter called id.
         // The id parameter will be passed to the dishDetail Component.
