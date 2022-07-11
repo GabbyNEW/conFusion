@@ -14,7 +14,7 @@ On the completion of this repository, the achieved learning goals are the follow
 - Be able to use Angular Material and Angular Flex-Layout for designing responsive Angular applications
 - Be able to use Observables and RxJS in the context of Angular applications
 
-WIthin the source files, there are substantial amounts of comments detailing lecture notes and insights learned during the coding exercises. These are written for referencing and reviewing purposes.
+Within the source files, there are substantial amounts of comments detailing lecture notes and insights learned during the coding exercises. These are written for referencing and reviewing purposes should there be a need to develop an Angular app.
 
 ## Output
 _Work in progress_
