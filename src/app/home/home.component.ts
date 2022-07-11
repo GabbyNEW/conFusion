@@ -25,9 +25,12 @@ export class HomeComponent implements OnInit {
   // Will be executed by the Angular framework
   // whenever this component is instantiated.
   ngOnInit(): void {
-    this.dish = this.dishService.getFeaturedDish();
-    this.promotion = this.promotionService.getFeaturedPromotion();
-    this.leader = this.leaderService.getFeaturedLeader();
+    this.dishService.getFeaturedDish()
+    .then(dish => this.dish = dish);
+    this.promotionService.getFeaturedPromotion()
+    .then(promotion => this.promotion = promotion);
+    this.leaderService.getFeaturedLeader()
+    .then(leader => this.leader = leader);
   }
 
 }

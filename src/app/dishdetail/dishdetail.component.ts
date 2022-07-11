@@ -32,7 +32,8 @@ export class DishdetailComponent implements OnInit {
 
     // Fetches the id from the route parameter. Which dish should be shown?
     let id = this.route.snapshot.params['id'];
-    this.dish = this.dishService.getDish(id);
+    this.dishService.getDish(id)
+    .then(dish => this.dish = dish);
   }
 
   goBack(): void {

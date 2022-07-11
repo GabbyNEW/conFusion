@@ -12,16 +12,16 @@ export class DishService {
 
   // Our dish service is configured to supply the DISHES object to any other part of our application that needs it.
   // To make this happen, we need to inject this service.
-  getDishes(): Dish[] {
-    return DISHES;
+  getDishes(): Promise<Dish[]> {
+    return Promise.resolve(DISHES);
   }
 
-  getDish(id: String): Dish {
+  getDish(id: String): Promise<Dish> {
     // Arrow functions are used here
-    return DISHES.filter((dish) => (dish.id == id))[0];
+    return Promise.resolve(DISHES.filter((dish) => (dish.id == id))[0]);
   }
 
-  getFeaturedDish(): Dish {
-    return DISHES.filter((dish) => dish.featured)[0];
+  getFeaturedDish(): Promise<Dish> {
+    return Promise.resolve(DISHES.filter((dish) => dish.featured)[0]);
   }
 }

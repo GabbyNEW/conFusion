@@ -21,7 +21,8 @@ export class MenuComponent implements OnInit {
   // Will be executed by the Angular framework
   // whenever this component is instantiated.
   ngOnInit(): void {
-    this.dishes = this.dishService.getDishes();
+    this.dishService.getDishes()
+    .then((dishes) => this.dishes = dishes);
   }
 
   // Handler (view to data source binding)

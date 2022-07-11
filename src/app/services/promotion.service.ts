@@ -9,16 +9,16 @@ export class PromotionService {
 
   constructor() { }
 
-  getPromotions(): Promotion[] {
-    return PROMOTIONS;
+  getPromotions(): Promise<Promotion[]> {
+    return Promise.resolve(PROMOTIONS);
   }
 
-  getPromotion(id: String): Promotion {
+  getPromotion(id: String): Promise<Promotion> {
     // Arrow functions are used here
-    return PROMOTIONS.filter((promo) => (promo.id == id))[0];
+    return Promise.resolve(PROMOTIONS.filter((promo) => (promo.id == id))[0]);
   }
 
-  getFeaturedPromotion(): Promotion {
-    return PROMOTIONS.filter((promo) => promo.featured)[0];
+  getFeaturedPromotion(): Promise<Promotion> {
+    return Promise.resolve(PROMOTIONS.filter((promo) => promo.featured)[0]);
   }
 }
