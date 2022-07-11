@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core'; // ViewChild allows us to access any of the child dom elements in the template
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
 
@@ -14,6 +14,9 @@ export class ContactComponent implements OnInit {
   // corresponding data model, can be fetched from a server
   feedback!: Feedback; 
   contactType = ContactType;
+  // Refer to the feedback form by giving it a template variable called fform
+  // This allows us to access the template form and then reset it 
+  @ViewChild('fform') feedbackFormDirective: any;
 
   constructor(private fb: FormBuilder) {
     // When this class is built, the form will be created
@@ -30,10 +33,10 @@ export class ContactComponent implements OnInit {
     this.feedbackForm = this.fb.group({
       // We can construct parts of the form here
       // We can also include various form controls here
-      firstname: '',
-      lastname: '',
-      telnum: 0,
-      email: '',
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      telnum: [0, Validators.required],
+      email: ['', Validators.required],
       agree: false,
       contacttype: 'None',
       message: ''
@@ -47,6 +50,16 @@ export class ContactComponent implements OnInit {
     this.feedback = this.feedbackForm.value;
 
     console.log(this.feedback);
-    this.feedbackForm.reset(); // resets the form into a normal state, removing all the entries in the form view
+    // resets the form into a normal state, removing all the entries in the form view
+    this.feedbackForm.reset({
+      firstname: '',
+      lastname: '',
+      telnum: 0,
+      email: '',
+      agree: false,
+      contacttype: 'None',
+      message: ''
+    }); 
+    this.feedbackFormDirective.resetForm();
   }
 }
