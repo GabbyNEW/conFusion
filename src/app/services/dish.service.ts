@@ -13,15 +13,25 @@ export class DishService {
   // Our dish service is configured to supply the DISHES object to any other part of our application that needs it.
   // To make this happen, we need to inject this service.
   getDishes(): Promise<Dish[]> {
-    return Promise.resolve(DISHES);
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay
+      setTimeout(() => resolve(DISHES), 2000)
+    });
   }
 
   getDish(id: String): Promise<Dish> {
     // Arrow functions are used here
-    return Promise.resolve(DISHES.filter((dish) => (dish.id == id))[0]);
-  }
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay
+      setTimeout(() => resolve(DISHES.filter((dish) => (dish.id == id))[0]), 2000);
+  });
+}
 
   getFeaturedDish(): Promise<Dish> {
-    return Promise.resolve(DISHES.filter((dish) => dish.featured)[0]);
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay
+      setTimeout(() => resolve(DISHES.filter((dish) => dish.featured)[0]), 2000);
+    });
   }
+
 }
