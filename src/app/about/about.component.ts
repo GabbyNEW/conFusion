@@ -8,13 +8,13 @@ import { LeaderService } from '../services/leader.service';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
-  leaders!: Leader[];
+  leaders!: Leader[] | undefined;
 
   constructor(private leaderService: LeaderService) { }
 
   ngOnInit(): void {
     this.leaderService.getLeaders()
-    .then(leaders => this.leaders = leaders);
+    .subscribe((leaders: Leader[] | undefined) => this.leaders = leaders);
   }
 
 }

@@ -9,7 +9,7 @@ import { DishService } from '../services/dish.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  dishes!: Dish[];
+  dishes!: Dish[] | undefined;
 
   selectedDish!: Dish;
 
@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit {
   // whenever this component is instantiated.
   ngOnInit(): void {
     this.dishService.getDishes()
-    .then((dishes) => this.dishes = dishes);
+    .subscribe((dishes: Dish[] | undefined) => this.dishes = dishes);
   }
 
   // Handler (view to data source binding)

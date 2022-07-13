@@ -16,7 +16,7 @@ export class DishdetailComponent implements OnInit {
   // You bind a property in the template of the other component,
   // and that will be available as input to this component.
   // @Input() // Automatically refreshes the view when a change in dish value happens.
-  dish!: Dish;
+  dish!: Dish | undefined;
 
   constructor(private dishService: DishService, 
     private route: ActivatedRoute,
@@ -33,7 +33,7 @@ export class DishdetailComponent implements OnInit {
     // Fetches the id from the route parameter. Which dish should be shown?
     let id = this.route.snapshot.params['id'];
     this.dishService.getDish(id)
-    .then(dish => this.dish = dish);
+    .subscribe((dish: Dish | undefined) => this.dish = dish);
   }
 
   goBack(): void {
