@@ -5,6 +5,7 @@ import { Dish } from '../shared/dish';
 import { Params, ActivatedRoute } from '@angular/router'; 
 import { Location } from '@angular/common'; // Track the location of the page (browser history)
 import { DishService } from '../services/dish.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dishdetail',
@@ -17,23 +18,37 @@ export class DishdetailComponent implements OnInit {
   // and that will be available as input to this component.
   // @Input() // Automatically refreshes the view when a change in dish value happens.
   dish!: Dish | undefined;
+  dishIds!: string[];
+  prev!: string;
+  next!: string;
 
   constructor(private dishService: DishService, 
     private route: ActivatedRoute,
     private location: Location) { }
 
   ngOnInit(): void {
+    this.dishService.getDishIds()
+      .subscribe((dishIds) => this.dishIds = dishIds);
     // When you click on a dish from the menuComponent, 
-      // the router link will pass the dish id to the Router as RouterParameter,
-      // and that value will become available here in dishdetailComponent 
-      // by accessing the ActivatedRoute service.
-
-      // You can now ues that value to query the dish here.
+    // the router link will pass the dish id to the Router as RouterParameter,
+    // and that value will become available here in dishdetailComponent 
+    // by accessing the ActivatedRoute service.
 
     // Fetches the id from the route parameter. Which dish should be shown?
-    let id = this.route.snapshot.params['id'];
-    this.dishService.getDish(id)
-    .subscribe((dish: Dish | undefined) => this.dish = dish);
+    // Whenever the params observable changes value,
+    // the switchMap operator takes the params value and do a getDish
+    // (anytime the observable changes, the dish will be updated)
+    // and will be available as an Observable that is emitted by doing a switchMap operator
+    // on this observable.
+    // Then, a new observable (getDish) has been created, where we subscribe to it
+    this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
+      .subscribe((dish: Dish | undefined) => { this.dish = dish; this.setPrevNext(dish?.id); });
+  }
+
+  setPrevNext(dishId: string | undefined) {
+    const index = this.dishIds.indexOf(dishId!);
+    this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
+    this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
   }
 
   goBack(): void {
