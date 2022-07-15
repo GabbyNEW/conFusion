@@ -30,22 +30,53 @@
             </button>
         </mat-card-actions>
     </mat-card>
-  </div>
+  </div> 
 
-  <div fxFlex="40" *ngIf="dish">
-    <h3>Comments</h3> 
+    <div fxFlex="40" *ngIf="dish">
+        <h3>Comments</h3> 
 
-    <mat-list>
-        <mat-list-item *ngFor="let comment of dish.comments">
-            <p matLine>{{comment.comment}}</p>
-            <p matLine>Rating {{comment.rating}}</p>
-            <p matLine>-- {{comment.author}} {{comment.date | date}}</p>
-        </mat-list-item>
-    </mat-list>
-    <div fxFlex [hidden]="dish">
-        <mat-spinner></mat-spinner> <h4>Loading . . . Please Wait!</h4>
+        <mat-list>
+            <mat-list-item *ngFor="let comment of dish.comments">
+                <p matLine>{{comment.comment}}</p>
+                <p matLine>Rating {{comment.rating}}</p>
+                <p matLine>-- {{comment.author}} {{comment.date | date}}</p>
+            </mat-list-item>
+        </mat-list>
+        
+        <hr>
+        <mat-list *ngIf="feedbackForm.valid">
+            <mat-list-item >
+                <p matLine> {{feedbackForm.controls['author'].value}} </p>
+                <p matLine> {{feedbackForm.controls['rating'].value}} </p>
+                <p matLine> {{feedbackForm.controls['comment'].value}} </p>
+            </mat-list-item>
+        </mat-list>
+
+        <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+            <p>
+                <mat-form-field class="half-width">
+                    <input matInput formControlName="author" placeholder="Name" type="text" required>
+                    <mat-error >{{ formErrors.author }}</mat-error>
+                </mat-form-field>
+            </p>
+            <h5>Rating</h5>
+            <p>
+                <mat-slider thumbLabel formControlName="rating" tickInterval="1" min="1" max="5" id="slider">
+                </mat-slider>
+            </p>
+            <p>
+                <mat-form-field class="full-width">
+                  <textarea matInput formControlName="comment" placeholder="Your Comment" rows=15 required></textarea>
+                  <mat-error >{{ formErrors.comment }}</mat-error>
+                </mat-form-field>
+            </p>
+            <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
+        </form>
+
     </div>
 
-  </div>
+    <div fxFlex [hidden]="dish">
+        <mat-spinner></mat-spinner> <h4>Loading . . . Please Wait!</h4>
+    </div> 
 
 </div>

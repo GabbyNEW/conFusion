@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Dish } from '../shared/dish';
 // Params = Gives you access to the Router parameters
 // ActivatedRoute = Fetch the Route value
@@ -16,15 +17,38 @@ export class DishdetailComponent implements OnInit {
   // @Input: A way for you to supply information into a component from another component.
   // You bind a property in the template of the other component,
   // and that will be available as input to this component.
-  // @Input() // Automatically refreshes the view when a change in dish value happens.
+  @Input() // Automatically refreshes the view when a change in dish value happens.
   dish!: Dish | undefined;
   dishIds!: string[];
   prev!: string;
   next!: string;
 
+  // Form model
+  feedbackForm!: FormGroup;
+  @ViewChild('fform') feedbackFormDirective: any;
+
+  formErrors = {
+    'author': '',
+    'comment': ''
+  };
+
+  validationMessages = {
+    'author': {
+      'required': 'Name is required.',
+      'minlength': 'First name must be at least 2 characters long.'
+    },
+    'comment': {
+      'required': 'Comment is required.',
+      'minlength': 'First name must be at least 2 characters long.'
+    }
+  };
+
   constructor(private dishService: DishService, 
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location,
+    private fb: FormBuilder) { 
+      this.createForm();
+    }
 
   ngOnInit(): void {
     this.dishService.getDishIds()
@@ -43,6 +67,66 @@ export class DishdetailComponent implements OnInit {
     // Then, a new observable (getDish) has been created, where we subscribe to it
     this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
       .subscribe((dish: Dish | undefined) => { this.dish = dish; this.setPrevNext(dish?.id); });
+  }
+
+  createForm() {
+    this.feedbackForm = this.fb.group({
+      rating: 5,
+      comment: ['', [Validators.required, Validators.minLength(2)]],
+      author: ['', [Validators.required, Validators.minLength(2)]],
+      date: ''
+    })
+
+    this.feedbackForm.valueChanges
+      .subscribe(data => this.onValueChanged(data));
+
+    this.onValueChanged();
+  }
+
+  // Monitor form input, display validation messages
+  onValueChanged(data?: any) {
+    if (!this.feedbackForm) return;
+    const form = this.feedbackForm;
+
+    for (const field in this.formErrors) {
+      if (this.formErrors.hasOwnProperty(field)) {
+        this.formErrors[field] = '';
+        const control = form.get(field);
+
+        if (control && control.dirty && !control.valid) {
+          const messages = this.validationMessages[field];
+          for (const key in control.errors) {
+            if (control.errors.hasOwnProperty(key)) {
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+        }
+
+      }
+    }
+
+  }
+
+  onSubmit() {
+    let feedback = this.feedbackForm.value;
+
+    // get current date 
+    const date = new Date();
+    let date_string = date.toDateString();
+    feedback['date'] = date_string;
+    console.log(feedback);
+
+    // push comment
+    this.dish?.comments.push(feedback);
+
+    // reset form
+    this.feedbackFormDirective.resetForm();
+    this.feedbackForm.reset({
+      rating: 5,
+      author: '',
+      comment: '',
+      date: ''
+    });
   }
 
   setPrevNext(dishId: string | undefined) {
