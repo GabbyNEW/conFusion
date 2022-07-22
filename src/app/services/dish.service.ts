@@ -1,9 +1,11 @@
 // We can inject services into our app module and make use of it in our componenets (injectable)
 import { Injectable } from '@angular/core';
 import { Dish } from '../shared/dish';
-import { DISHES } from '../shared/dishes';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { baseURL } from '../shared/baseurl';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ import { delay } from 'rxjs/operators';
 // and obtain the data required for rendering the views
 export class DishService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   // Our dish service is configured to supply the DISHES object to any other part of our application that needs it.
   // To make this happen, we need to inject this service.
@@ -30,20 +32,21 @@ export class DishService {
 
   // We use the of operator to create an RxJS Observable
   getDishes(): Observable<Dish[]> {
-    return of(DISHES).pipe(delay(2000));
+    return this.http.get<Dish[]>(baseURL + 'dishes');
   }
 
   getDish(id: String): Observable<Dish> {
     // Arrow functions are used here
-    return of(DISHES.filter((dish) => (dish.id == id))[0]).pipe(delay(2000));
+    return this.http.get<Dish>(baseURL + 'dishes/' + id);
 }
 
   getFeaturedDish(): Observable<Dish> {
-    return of(DISHES.filter((dish) => dish.featured)[0]).pipe(delay(2000));
+    return this.http.get<Dish[]>(baseURL + 'dishes?featured=true')
+    .pipe(map(dishes => dishes[0]));
   }
 
   getDishIds(): Observable<string[] | any> {
-    return of(DISHES.map(dish => dish.id));
+    return this.getDishes().pipe(map(dishes => dishes.map(dish => dish.id)));
   }
 
 }
