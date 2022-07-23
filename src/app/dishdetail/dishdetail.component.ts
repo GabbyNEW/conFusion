@@ -28,6 +28,8 @@ export class DishdetailComponent implements OnInit {
   feedbackForm!: FormGroup;
   @ViewChild('fform') feedbackFormDirective: any;
 
+  dishcopy!: Dish | undefined;
+
   formErrors = {
     'author': '',
     'comment': ''
@@ -68,7 +70,7 @@ export class DishdetailComponent implements OnInit {
     // on this observable.
     // Then, a new observable (getDish) has been created, where we subscribe to it
     this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-      .subscribe((dish: Dish | undefined) => { this.dish = dish; this.setPrevNext(dish?.id); },
+      .subscribe((dish: Dish | undefined) => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish?.id); },
        errmess => this.errMess = <any>errmess);
   }
 
@@ -120,7 +122,12 @@ export class DishdetailComponent implements OnInit {
     console.log(feedback);
 
     // push comment
-    this.dish?.comments.push(feedback);
+    this.dishcopy?.comments.push(feedback);
+    this.dishService.putDish(this.dishcopy)
+      .subscribe(dish => {
+        this.dish = dish; this.dishcopy = dish;
+      },
+      errmess => { this.dish = undefined; this.dishcopy = undefined; this.errMess = <any>errmess;});
 
     // reset form
     this.feedbackFormDirective.resetForm();
