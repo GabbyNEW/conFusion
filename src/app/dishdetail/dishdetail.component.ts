@@ -19,6 +19,7 @@ export class DishdetailComponent implements OnInit {
   // and that will be available as input to this component.
   @Input() // Automatically refreshes the view when a change in dish value happens.
   dish!: Dish | undefined;
+  errMess: string | undefined;
   dishIds!: string[];
   prev!: string;
   next!: string;
@@ -67,7 +68,8 @@ export class DishdetailComponent implements OnInit {
     // on this observable.
     // Then, a new observable (getDish) has been created, where we subscribe to it
     this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-      .subscribe((dish: Dish | undefined) => { this.dish = dish; this.setPrevNext(dish?.id); });
+      .subscribe((dish: Dish | undefined) => { this.dish = dish; this.setPrevNext(dish?.id); },
+       errmess => this.errMess = <any>errmess);
   }
 
   createForm() {

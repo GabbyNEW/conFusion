@@ -14,6 +14,7 @@ import { LeaderService } from '../services/leader.service';
 export class HomeComponent implements OnInit {
 
   dish!: Dish | undefined;
+  dishErrMess!: string;
   promotion!: Promotion | undefined;
   leader!: Leader | undefined;
 
@@ -27,7 +28,8 @@ export class HomeComponent implements OnInit {
   // whenever this component is instantiated.
   ngOnInit(): void {
     this.dishService.getFeaturedDish()
-    .subscribe((dish: Dish | undefined) => this.dish = dish);
+    .subscribe((dish: Dish | undefined) => this.dish = dish,
+      errmess => this.dishErrMess = <any>errmess);
     this.promotionService.getFeaturedPromotion()
     .subscribe((promotion: Promotion | undefined) => this.promotion = promotion);
     this.leaderService.getFeaturedLeader()

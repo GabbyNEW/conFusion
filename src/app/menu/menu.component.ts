@@ -10,6 +10,7 @@ import { DishService } from '../services/dish.service';
 })
 export class MenuComponent implements OnInit {
   dishes!: Dish[] | undefined;
+  errMess: string | undefined;
 
   // When this component is created, the DishService 
   // that you injected in the app module will be instantiated and will be made available here.
@@ -21,7 +22,8 @@ export class MenuComponent implements OnInit {
   // whenever this component is instantiated.
   ngOnInit(): void {
     this.dishService.getDishes()
-    .subscribe((dishes: Dish[] | undefined) => this.dishes = dishes);
+      .subscribe((dishes: Dish[] | undefined) => this.dishes = dishes,
+      errmess => this.errMess = <any>errmess);
   }
 
   // Handler (view to data source binding)

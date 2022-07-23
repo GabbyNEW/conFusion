@@ -39,6 +39,7 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
+import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 
 import 'hammerjs';
 import { LoginComponent } from './login/login.component';
@@ -78,7 +79,8 @@ import { baseURL } from './shared/baseurl';
     DishService,
     PromotionService,
     LeaderService,
-    { provide: 'BaseURL', useValue: baseURL } // access using @Inject
+    { provide: 'BaseURL', useValue: baseURL }, // access using @Inject
+    ProcessHTTPMsgService
   ], // What services this module will make use of
   entryComponents: [ // A dialog component must be declared as an entry component
     LoginComponent
