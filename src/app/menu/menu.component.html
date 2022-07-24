@@ -14,7 +14,7 @@
 
             <!-- routerLink attribute = initiates navigation to a route. -->
             <!-- The Router enables the dishComponent to retrieve the value of routerLink -->
-            <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]">
+            <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]" appHighlight>
                 <img height="200px" src="{{BaseURL + dish.image}}" alt="{{dish.name}}">
                 <mat-grid-tile-footer>
                     <h1> {{dish.name | uppercase}}</h1>

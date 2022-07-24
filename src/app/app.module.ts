@@ -44,6 +44,7 @@ import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 import 'hammerjs';
 import { LoginComponent } from './login/login.component';
 import { baseURL } from './shared/baseurl';
+import { HighlightDirective } from './directives/highlight.directive';
 
 // A decorator is a function that modifies Javascript classes
 // NgModule allows you to specify some details about this app module
@@ -51,7 +52,7 @@ import { baseURL } from './shared/baseurl';
   declarations: [ // Declares the view classes that belong to this particular module
   // The view classes for an Angular module would be in the form of 
   // either components, directives, and pipes.
-    AppComponent, MenuComponent, DishdetailComponent, HeaderComponent, FooterComponent, HomeComponent, AboutComponent, ContactComponent, LoginComponent
+    AppComponent, MenuComponent, DishdetailComponent, HeaderComponent, FooterComponent, HomeComponent, AboutComponent, ContactComponent, LoginComponent, HighlightDirective
   ],
   imports: [ // specifices which modules need to be imported to be used with this app module
     BrowserModule,
