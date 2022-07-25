@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core'; // ViewChild allow
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
 import { flyInOut } from '../animations/app.animation';
+import { FeedbackService } from '../services/feedback.service';
 
 @Component({
   selector: 'app-contact',
@@ -21,8 +22,14 @@ export class ContactComponent implements OnInit {
   // Form model that hosts the Reactive form
   feedbackForm!: FormGroup;
   // corresponding data model, can be fetched from a server
-  feedback!: Feedback; 
+  feedback!: Feedback | undefined; 
+  feedbackCopy!: Feedback | undefined;
+  errMess!: string;
   contactType = ContactType;
+
+  showForm: Boolean = true;
+  showSubmittedForm: Boolean = false;
+
   // Refer to the feedback form by giving it a template variable called fform
   // This allows us to access the template form and then reset it 
   @ViewChild('fform') feedbackFormDirective: any;
@@ -55,7 +62,8 @@ export class ContactComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private feedbackService: FeedbackService,
+    private fb: FormBuilder) {
     // When this class is built, the form will be created
     this.createForm();
    }
@@ -113,12 +121,35 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.feedbackFormDirective);
+    if (!this.feedbackForm) return;
     // It so happens that the form model is exactly the same as the data models
     // The value property allows us to retrieve the values of a form
     // If the data model is different from the form model, we have to manually map the properties
     this.feedback = this.feedbackForm.value;
+    this.feedbackCopy = this.feedbackForm.value;
+    this.showForm = false;
+    this.feedbackFormDirective.resetForm();
 
-    console.log(this.feedback);
+    // post feedback
+    this.feedbackService.submitFeedback(this.feedbackCopy)
+      .subscribe(feedback => {
+        this.feedback = feedback;
+        this.feedbackCopy = feedback;
+        this.showForm = false;
+        this.showSubmittedForm = true;
+        setTimeout(() => {
+          this.resetFormLocal();
+          this.showForm = true;
+          this.showSubmittedForm = false;
+        }, 5000);
+      },
+        errmess => {this.feedback = undefined, this.feedbackCopy = undefined, this.errMess = <any>errmess}
+      );
+
+  }
+
+  resetFormLocal() {
     // resets the form into a normal state, removing all the entries in the form view
     this.feedbackForm.reset({
       firstname: '',
@@ -129,6 +160,5 @@ export class ContactComponent implements OnInit {
       contacttype: 'None',
       message: ''
     }); 
-    this.feedbackFormDirective.resetForm();
   }
 }

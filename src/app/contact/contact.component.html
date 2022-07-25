@@ -36,13 +36,12 @@
     </div>
   </div>
 
-  <div fxFlex fxFlexOffset="20px" class="form-size">
+  <div fxFlex fxFlexOffset="20px" class="form-size" >
     <h3>Send us your Feedback</h3>
-    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
 
     <!-- This form group will tie into the Reactive form model -->
     <!-- We are tying this reactive form to the corresponding form model in the typescript file of this component -->
-    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" *ngIf="showForm">
       <p>
         <mat-form-field class="half-width">
           <!-- formControlName ties this into a property inside the form model
@@ -98,5 +97,51 @@
       <button type="submit" mat-button class="background-primary text-floral-white"
       [disabled]="feedbackForm.invalid">Submit</button>
     </form>
+
+    <div *ngIf="!showForm && !showSubmittedForm">
+      <h3>Submitting Form...</h3>
+      <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+    </div>
+
+    <mat-card *ngIf="!showForm && showSubmittedForm">
+      <mat-card-header>
+        <mat-card-title>Your Submission</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table>
+          <tr>
+          </tr>
+          <tr>
+            <td><span>First Name:</span></td>
+            <td>{{feedback?.firstname}}</td>
+          </tr>
+          <tr>
+            <td><span>Last Name:</span></td>
+            <td>{{feedback?.lastname}}</td>
+          </tr>
+          <tr>
+            <td><span>Tel. Number:</span></td>
+            <td>{{feedback?.telnum}}</td>
+          </tr>
+          <tr>
+            <td><span>Email:</span></td>
+            <td>{{feedback?.email}}</td>
+          </tr>
+          <tr>
+            <td><span>Contact You:</span></td>
+            <td>{{feedback?.agree}}</td>
+          </tr>
+          <tr>
+            <td><span>How:</span></td>
+            <td>{{feedback?.contacttype}}</td>
+          </tr>
+          <tr>
+            <td><span>Feedback:</span></td>
+            <td>{{feedback?.message}}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+
   </div>
 </div>
