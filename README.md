@@ -17,7 +17,7 @@ On the completion of this repository, the achieved learning goals are the follow
 Within the source files, there are substantial amounts of comments detailing lecture notes and insights learned during the coding exercises. These are written for referencing and reviewing purposes should there be a need to develop an Angular app.
 
 ## Output
-_Work in progress_
+[Click here to see output (GIF).](https://imgur.com/a/C5Leyyn)
 
 ## Development server
 
